@@ -16,11 +16,11 @@ export interface IOrderForm {
 	address: string;
 	phone: string;
 	email: string;
-	total: number;
 }
 
 export interface IOrder extends IOrderForm {
 	items: string[];
+    total: number;
 }
 
 export interface IOrderResult {
