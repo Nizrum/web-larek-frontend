@@ -29,11 +29,7 @@ export class CartModel implements ICartModel {
 	}
 
 	getTotalCost() {
-		let total = 0;
-		this.cartProducts.forEach((item) => {
-			total += item.price;
-		});
-		return total;
+		return this.cartProducts.reduce((total, item) => total + item.price, 0);
 	}
 
 	addToCart(data: IProductItem) {
@@ -42,7 +38,7 @@ export class CartModel implements ICartModel {
 
 	deleteFromCart(item: IProductItem) {
 		const index = this._cartProducts.indexOf(item);
-		if (index >= 0) {
+		if (index != -1) {
 			this._cartProducts.splice(index, 1);
 		}
 	}
