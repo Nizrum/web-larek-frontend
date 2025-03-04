@@ -17,7 +17,7 @@ export class ProductListModel implements IProductListModel {
 
 	set productCards(data: IProductItem[]) {
 		this._productCards = data;
-		this.events.emit("productCards:receive");
+		this.events.emit("products:set");
 	}
 
 	get productCards() {
@@ -26,6 +26,6 @@ export class ProductListModel implements IProductListModel {
 
 	showCard(item: IProductItem) {
 		this.selectedСard = item;
-		this.events.emit("modalCard:open", item);
+		this.events.emit("cardModal:open", item);
 	}
 }

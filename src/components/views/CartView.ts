@@ -35,10 +35,10 @@ export class CartView implements ICartView {
 		);
 
 		this.button.addEventListener("click", () => {
-			this.events.emit("order:open");
+			this.events.emit("orderForm:open");
 		});
 		this.headerCartButton.addEventListener("click", () => {
-			this.events.emit("basket:open");
+			this.events.emit("cart:open");
 		});
 
 		this.items = [];

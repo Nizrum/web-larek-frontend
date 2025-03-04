@@ -10,18 +10,18 @@ export interface ICartModel {
 }
 
 export class CartModel implements ICartModel {
-	protected _cartProducts: IProductItem[];
+	protected _cartProducts: Set<IProductItem>;
 
 	constructor() {
-		this._cartProducts = [];
+		this._cartProducts = new Set<IProductItem>();
 	}
 
 	set cartProducts(data: IProductItem[]) {
-		this._cartProducts = data;
+		this._cartProducts = new Set<IProductItem>(data);
 	}
 
 	get cartProducts() {
-		return this._cartProducts;
+		return Array.from(this._cartProducts);
 	}
 
 	getAmount() {
@@ -32,15 +32,12 @@ export class CartModel implements ICartModel {
 		return this.cartProducts.reduce((total, item) => total + item.price, 0);
 	}
 
-	addToCart(data: IProductItem) {
-		this._cartProducts.push(data);
+	addToCart(item: IProductItem) {
+		this._cartProducts.add(item);
 	}
 
 	deleteFromCart(item: IProductItem) {
-		const index = this._cartProducts.indexOf(item);
-		if (index != -1) {
-			this._cartProducts.splice(index, 1);
-		}
+		this._cartProducts.delete(item);
 	}
 
 	clearCart() {

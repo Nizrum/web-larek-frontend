@@ -11,14 +11,17 @@ export interface IActions {
 	onClick: (event: MouseEvent) => void;
 }
 
-export interface IOrderForm {
-	payment: string;
+export interface IShippingDetails {
+    payment: string;
 	address: string;
-	phone: string;
+}
+
+export interface IContacts {
+    phone: string;
 	email: string;
 }
 
-export interface IOrder extends IOrderForm {
+export interface IOrder extends IShippingDetails, IContacts {
 	items: string[];
     total: number;
 }

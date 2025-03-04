@@ -21,7 +21,7 @@ export class SuccessfulOrderView implements ISuccessfulOrderView {
 		this.button = this.modal.querySelector(".order-success__close");
 
 		this.button.addEventListener("click", () => {
-			events.emit("success:close");
+			events.emit("successfulOrder:close");
 		});
 	}
 

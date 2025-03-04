@@ -39,7 +39,7 @@ export class OrderFormView implements IOrderFormView {
 
 		this.form.addEventListener("submit", (event: Event) => {
 			event.preventDefault();
-			this.events.emit("contacts:open");
+			this.events.emit("contactsForm:open");
 		});
 	}
 

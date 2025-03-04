@@ -3,15 +3,20 @@ import { IEvents } from "../base/events";
 import { cloneTemplate } from "../../utils/utils";
 
 export interface ICardView {
+    cardElement: HTMLElement;
+	cardCategory: HTMLElement;
+	cardTitle: HTMLElement;
+	cardImage: HTMLImageElement;
+	cardPrice: HTMLElement;
 	render(data: IProductItem): HTMLElement;
 }
 
 export class CardView implements ICardView {
-	protected _cardElement: HTMLElement;
-	protected _cardCategory: HTMLElement;
-	protected _cardTitle: HTMLElement;
-	protected _cardImage: HTMLImageElement;
-	protected _cardPrice: HTMLElement;
+	cardElement: HTMLElement;
+	cardCategory: HTMLElement;
+	cardTitle: HTMLElement;
+	cardImage: HTMLImageElement;
+	cardPrice: HTMLElement;
 	protected _colors = <Record<string, string>>{
 		дополнительное: "additional",
 		"софт-скил": "soft",
@@ -25,15 +30,15 @@ export class CardView implements ICardView {
 		protected events: IEvents,
 		actions?: IActions
 	) {
-		this._cardElement = cloneTemplate<HTMLElement>(template);
-		this._cardCategory =
-			this._cardElement.querySelector(".card__category");
-		this._cardTitle = this._cardElement.querySelector(".card__title");
-		this._cardImage = this._cardElement.querySelector(".card__image");
-		this._cardPrice = this._cardElement.querySelector(".card__price");
+		this.cardElement = cloneTemplate<HTMLElement>(template);
+		this.cardCategory =
+			this.cardElement.querySelector(".card__category");
+		this.cardTitle = this.cardElement.querySelector(".card__title");
+		this.cardImage = this.cardElement.querySelector(".card__image");
+		this.cardPrice = this.cardElement.querySelector(".card__price");
 
 		if (actions?.onClick) {
-			this._cardElement.addEventListener("click", actions.onClick);
+			this.cardElement.addEventListener("click", actions.onClick);
 		}
 	}
 
@@ -42,14 +47,14 @@ export class CardView implements ICardView {
     }
 
 	render(data: IProductItem): HTMLElement {
-		this._cardCategory.textContent = data.category;
-		this._cardCategory.className = `card__category card__category_${
+		this.cardCategory.textContent = data.category;
+		this.cardCategory.className = `card__category card__category_${
 			this._colors[data.category]
 		}`;
-		this._cardTitle.textContent = data.title;
-		this._cardImage.src = data.image;
-		this._cardImage.alt = this._cardTitle.textContent;
-		this._cardPrice.textContent = this.getPriceText(data.price);
-		return this._cardElement;
+		this.cardTitle.textContent = data.title;
+		this.cardImage.src = data.image;
+		this.cardImage.alt = this.cardTitle.textContent;
+		this.cardPrice.textContent = this.getPriceText(data.price);
+		return this.cardElement;
 	}
 }
