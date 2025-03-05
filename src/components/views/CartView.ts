@@ -13,7 +13,7 @@ export interface ICartView {
 	headerCartCounter: HTMLElement;
 	items: HTMLElement[];
 	renderHeaderCartCounter(value: number): void;
-	renderTotalCost(sumAll: number): void;
+	renderTotalCost(total: number): void;
 	render(): HTMLElement;
 }
 
