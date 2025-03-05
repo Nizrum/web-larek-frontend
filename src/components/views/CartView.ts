@@ -1,5 +1,7 @@
+import { IProductItem } from "../../types";
 import { createElement, cloneTemplate } from "../../utils/utils";
 import { IEvents } from "../base/events";
+import { CartItemView } from "./CartItemView";
 
 export interface ICartView {
 	cart: HTMLElement;
@@ -9,6 +11,7 @@ export interface ICartView {
 	cartTotalPrice: HTMLElement;
 	headerCartButton: HTMLButtonElement;
 	headerCartCounter: HTMLElement;
+    items: HTMLElement[];
 	renderHeaderCartCounter(value: number): void;
 	renderTotalCost(sumAll: number): void;
 	render(): HTMLElement;
@@ -22,8 +25,9 @@ export class CartView implements ICartView {
 	cartTotalPrice: HTMLElement;
 	headerCartButton: HTMLButtonElement;
 	headerCartCounter: HTMLElement;
+    items: HTMLElement[];
 
-	constructor(template: HTMLTemplateElement, protected events: IEvents) {
+	constructor(template: HTMLTemplateElement, protected events: IEvents, protected cartItemTemplate: HTMLTemplateElement) {
 		this.cart = cloneTemplate<HTMLElement>(template);
 		this.title = this.cart.querySelector(".modal__title");
 		this.cartList = this.cart.querySelector(".basket__list");
@@ -44,9 +48,17 @@ export class CartView implements ICartView {
 		this.items = [];
 	}
 
-	set items(items: HTMLElement[]) {
-		if (items.length) {
-			this.cartList.replaceChildren(...items);
+	renderItems(items: IProductItem[]) {
+		let i = 0;
+		this.items = items.map((item) => {
+			const basketItem = new CartItemView(this.cartItemTemplate, this.events, {
+				onClick: () => this.events.emit("basket:basketItemRemove", item),
+			});
+			i = i + 1;
+			return basketItem.render(item, i);
+		});
+		if (this.items.length) {
+			this.cartList.replaceChildren(...this.items);
 			this.button.removeAttribute("disabled");
 		} else {
 			this.button.setAttribute("disabled", "true");

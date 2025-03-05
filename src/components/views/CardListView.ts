@@ -10,12 +10,12 @@ export class CardListView implements ICardListView {
 	constructor(
 		public catalogElement: HTMLElement,
 		protected events: IEvents,
-        protected cardCatalogTemplate: HTMLTemplateElement
+        protected catalogCardTemplate: HTMLTemplateElement
 	) {}
 
 	render(data: IProductItem[]): HTMLElement {
 		data.forEach((item) => {
-            const card = new CardView(this.cardCatalogTemplate, this.events, {
+            const card = new CardView(this.catalogCardTemplate, this.events, {
                 onClick: () => this.events.emit("card:select", item),
             });
 			this.catalogElement.append(card.render(item));
