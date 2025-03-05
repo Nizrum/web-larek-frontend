@@ -11,7 +11,7 @@ export interface ICartView {
 	cartTotalPrice: HTMLElement;
 	headerCartButton: HTMLButtonElement;
 	headerCartCounter: HTMLElement;
-    items: HTMLElement[];
+	items: HTMLElement[];
 	renderHeaderCartCounter(value: number): void;
 	renderTotalCost(sumAll: number): void;
 	render(): HTMLElement;
@@ -25,9 +25,13 @@ export class CartView implements ICartView {
 	cartTotalPrice: HTMLElement;
 	headerCartButton: HTMLButtonElement;
 	headerCartCounter: HTMLElement;
-    items: HTMLElement[];
+	items: HTMLElement[];
 
-	constructor(template: HTMLTemplateElement, protected events: IEvents, protected cartItemTemplate: HTMLTemplateElement) {
+	constructor(
+		template: HTMLTemplateElement,
+		protected events: IEvents,
+		protected cartItemTemplate: HTMLTemplateElement
+	) {
 		this.cart = cloneTemplate<HTMLElement>(template);
 		this.title = this.cart.querySelector(".modal__title");
 		this.cartList = this.cart.querySelector(".basket__list");
@@ -51,9 +55,11 @@ export class CartView implements ICartView {
 	renderItems(items: IProductItem[]) {
 		let i = 0;
 		this.items = items.map((item) => {
-			const basketItem = new CartItemView(this.cartItemTemplate, this.events, {
-				onClick: () => this.events.emit("basket:basketItemRemove", item),
-			});
+			const basketItem = new CartItemView(
+				this.cartItemTemplate,
+				this.events,
+				() => this.events.emit("basket:basketItemRemove", item)
+			);
 			i = i + 1;
 			return basketItem.render(item, i);
 		});

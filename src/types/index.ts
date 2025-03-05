@@ -7,10 +7,6 @@ export interface IProductItem {
 	price: number | null;
 }
 
-export interface IActions {
-	onClick: (event: MouseEvent) => void;
-}
-
 export interface IShippingDetails {
     payment: string;
 	address: string;

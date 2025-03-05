@@ -1,9 +1,9 @@
-import { IActions, IProductItem } from "../../types";
+import { IProductItem } from "../../types";
 import { IEvents } from "../base/events";
 import { cloneTemplate } from "../../utils/utils";
 
 export interface ICardView {
-    cardElement: HTMLElement;
+	cardElement: HTMLElement;
 	cardCategory: HTMLElement;
 	cardTitle: HTMLElement;
 	cardImage: HTMLImageElement;
@@ -28,23 +28,22 @@ export class CardView implements ICardView {
 	constructor(
 		template: HTMLTemplateElement,
 		protected events: IEvents,
-		actions?: IActions
+		clickHandler?: (event: MouseEvent) => void
 	) {
 		this.cardElement = cloneTemplate<HTMLElement>(template);
-		this.cardCategory =
-			this.cardElement.querySelector(".card__category");
+		this.cardCategory = this.cardElement.querySelector(".card__category");
 		this.cardTitle = this.cardElement.querySelector(".card__title");
 		this.cardImage = this.cardElement.querySelector(".card__image");
 		this.cardPrice = this.cardElement.querySelector(".card__price");
 
-		if (actions?.onClick) {
-			this.cardElement.addEventListener("click", actions.onClick);
+		if (clickHandler) {
+			this.cardElement.addEventListener("click", clickHandler);
 		}
 	}
 
-    getPriceText(value: null | number): string {
-        return value === null ? "Бесценно" : String(value) + " синапсов"
-    }
+	getPriceText(value: null | number): string {
+		return value === null ? "Бесценно" : String(value) + " синапсов";
+	}
 
 	render(data: IProductItem): HTMLElement {
 		this.cardCategory.textContent = data.category;

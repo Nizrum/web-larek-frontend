@@ -1,4 +1,4 @@
-import { IActions, IProductItem } from "../../types";
+import { IProductItem } from "../../types";
 import { IEvents } from "../base/events";
 import { cloneTemplate } from "../../utils/utils";
 
@@ -21,7 +21,7 @@ export class CartItemView implements ICartItemView {
 	constructor(
 		template: HTMLTemplateElement,
 		protected events: IEvents,
-		actions?: IActions
+		clickHandler?: (event: MouseEvent) => void
 	) {
 		this.cartItem = cloneTemplate<HTMLElement>(template);
 		this.index = this.cartItem.querySelector(".basket__item-index");
@@ -31,14 +31,14 @@ export class CartItemView implements ICartItemView {
 			".basket__item-delete"
 		);
 
-		if (actions?.onClick) {
-			this.deleteButton.addEventListener("click", actions.onClick);
+		if (clickHandler) {
+			this.deleteButton.addEventListener("click", clickHandler);
 		}
 	}
 
 	getPriceText(value: null | number): string {
-        return value === null ? "Бесценно" : String(value) + " синапсов"
-    }
+		return value === null ? "Бесценно" : String(value) + " синапсов";
+	}
 
 	render(data: IProductItem, item: number) {
 		this.index.textContent = String(item);
