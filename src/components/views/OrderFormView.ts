@@ -26,7 +26,7 @@ export class OrderFormView implements IOrderFormView {
 		this.paymentOptionsButtons.forEach((item) => {
 			item.addEventListener("click", () => {
 				this.selectPaymentMethod(item.name);
-				events.emit("order:paymentSelection", item);
+				events.emit("orderForm:paymentSelection", item);
 			});
 		});
 
@@ -34,7 +34,7 @@ export class OrderFormView implements IOrderFormView {
 			const target = event.target as HTMLInputElement;
 			const field = target.name;
 			const value = target.value;
-			this.events.emit(`order:changeAddress`, { field, value });
+			this.events.emit(`orderForm:changeAddress`, { field, value });
 		});
 
 		this.form.addEventListener("submit", (event: Event) => {

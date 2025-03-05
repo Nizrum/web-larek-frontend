@@ -28,7 +28,7 @@ export class ContactsFormView implements IContactsFormView {
 				const target = event.target as HTMLInputElement;
 				const field = target.name;
 				const value = target.value;
-				this.events.emit(`order:changeContacts`, { field, value });
+				this.events.emit(`contactsForm:changeContacts`, { field, value });
 			});
 		});
 

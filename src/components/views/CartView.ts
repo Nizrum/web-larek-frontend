@@ -58,7 +58,7 @@ export class CartView implements ICartView {
 			const basketItem = new CartItemView(
 				this.cartItemTemplate,
 				this.events,
-				() => this.events.emit("basket:basketItemRemove", item)
+				() => this.events.emit("cart:removeFromCart", item)
 			);
 			i = i + 1;
 			return basketItem.render(item, i);

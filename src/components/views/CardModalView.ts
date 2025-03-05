@@ -5,6 +5,7 @@ import { IEvents } from "../base/events";
 export interface ICardModalView {
 	description: HTMLElement;
 	button: HTMLElement;
+	toggleButtonDisability(value: boolean): void;
 	render(data: IProductItem): HTMLElement;
 }
 
@@ -25,12 +26,20 @@ export class CardModalView extends CardView implements ICardModalView {
 		});
 	}
 
+	toggleButtonDisability(value: boolean): void {
+		if (value) {
+			this.button.setAttribute("disabled", "true");
+		} else {
+            this.button.removeAttribute("disabled");
+        }
+	}
+
 	render(data: IProductItem): HTMLElement {
-		super.render(data)
+		super.render(data);
 		this.description.textContent = data.description;
 		if (!data.price) {
-            this.button.setAttribute("disabled", "true");
-        }
+			this.button.setAttribute("disabled", "true");
+		}
 		return this.cardElement;
 	}
 }
