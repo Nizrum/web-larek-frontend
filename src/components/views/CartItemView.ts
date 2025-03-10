@@ -11,6 +11,14 @@ export interface ICartItemView {
 	render(data: IProductItem, item: number): HTMLElement;
 }
 
+export interface ICartItemViewConstructor {
+    new (
+        template: HTMLTemplateElement,
+		events: IEvents,
+		clickHandler?: (event: MouseEvent) => void
+    ): ICartItemView;
+}
+
 export class CartItemView implements ICartItemView {
 	cartItem: HTMLElement;
 	index: HTMLElement;

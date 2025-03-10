@@ -15,6 +15,8 @@ import { ContactsFormView } from "./components/views/ContactsFormView";
 import { ModalView } from "./components/views/ModalView";
 import { OrderFormView } from "./components/views/OrderFormView";
 import { SuccessfulOrderView } from "./components/views/SuccessfulOrderView";
+import { CardView } from "./components/views/CardView";
+import { CartItemView } from "./components/views/CartItemView";
 
 const modalContainer: HTMLElement =
 	ensureElement<HTMLElement>("#modal-container");
@@ -38,12 +40,12 @@ const apiModel = new ApiModel(CDN_URL, API_URL);
 const events = new EventEmitter();
 const productListModel = new ProductListModel(events);
 const modal = new ModalView(modalContainer, events);
-const cart = new CartView(cartTemplate, events, catalogCartTemplate);
+const cart = new CartView(cartTemplate, events, catalogCartTemplate, CartItemView);
 const cartModel = new CartModel();
 const formModel = new FormModel(events);
 const order = new OrderFormView(orderTemplate, events);
 const contacts = new ContactsFormView(contactsTemplate, events);
-const cardList = new CardListView(cardsCatalog, events, cardCatalogTemplate);
+const cardList = new CardListView(cardsCatalog, events, cardCatalogTemplate, CardView);
 
 events.on("products:set", () => {
 	cardList.render(productListModel.productCards);

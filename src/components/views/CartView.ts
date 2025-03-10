@@ -1,7 +1,7 @@
 import { IProductItem } from "../../types";
 import { createElement, cloneTemplate } from "../../utils/utils";
 import { IEvents } from "../base/events";
-import { CartItemView } from "./CartItemView";
+import { ICartItemViewConstructor } from "./CartItemView";
 
 export interface ICartView {
 	cart: HTMLElement;
@@ -30,7 +30,8 @@ export class CartView implements ICartView {
 	constructor(
 		template: HTMLTemplateElement,
 		protected events: IEvents,
-		protected cartItemTemplate: HTMLTemplateElement
+		protected cartItemTemplate: HTMLTemplateElement,
+        protected cartItemClass: ICartItemViewConstructor
 	) {
 		this.cart = cloneTemplate<HTMLElement>(template);
 		this.title = this.cart.querySelector(".modal__title");
@@ -55,7 +56,7 @@ export class CartView implements ICartView {
 	renderItems(items: IProductItem[]) {
 		let i = 0;
 		this.items = items.map((item) => {
-			const basketItem = new CartItemView(
+			const basketItem = new this.cartItemClass(
 				this.cartItemTemplate,
 				this.events,
 				() => this.events.emit("cart:removeFromCart", item)

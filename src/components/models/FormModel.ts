@@ -4,7 +4,7 @@ import { FormErrors, IOrder } from "../../types/index";
 export interface IFormModel extends IOrder {
 	setOrderData(field: string, value: string): void;
 	validateOrder(field: string): boolean;
-	getOrderData(): object;
+	getOrderData(): IOrder;
 }
 
 export class FormModel implements IFormModel {
@@ -40,7 +40,7 @@ export class FormModel implements IFormModel {
 	}
 
 	validateOrder(field: string) {
-		const errors: typeof this.formErrors = {};
+		const errors: FormErrors = {};
 
 		if (!this.address) {
 			errors.address = "Необходимо указать адрес";
